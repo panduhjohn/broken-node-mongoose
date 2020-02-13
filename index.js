@@ -8,6 +8,8 @@ const userRoutes = require('./routes/userRoute');
 
 require('dotenv').config();
 
+const port = process.env.PORT || 3000
+
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -20,6 +22,8 @@ mongoose
   .catch(err => console.log(`Mongo Error: ${err}`));
 
 app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoutes);
 
